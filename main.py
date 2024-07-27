@@ -1,5 +1,6 @@
 from minelib.Pack import Pack
 from minelib.types.PlayerSpecifier import PlayerSpecifier
+from minelib.logic import _mcif, _mcfor
 
 pack = Pack("Example", "hi", 26)
 
