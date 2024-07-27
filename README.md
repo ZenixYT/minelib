@@ -1,2 +1,2 @@
 # minelib
- A Python library for creating Minecraft datapacks
+ A Python library to create Minecraft Datapacks
