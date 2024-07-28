@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
-class Location(dataclass):
+@dataclass
+class Location():
     X: float
     Y: float
     Z: float
