@@ -1,6 +1,7 @@
 from enum import Enum
 from minelib.minecraft.mcfunction import get_current_mcf, set_current_mcf, mcfunction
 from minelib.types.PlayerSpecifier import PlayerSpecifier
+from minelib.types.ItemStack import ItemStack, ItemMeta
 
 class Player:
     def __init__(self):
@@ -14,8 +15,8 @@ class Player:
         else:
             print("Error: __mcf is not defined or is not of type mcfunction.")
 
-    def give_item(self, item_id: str, destined_player: str | PlayerSpecifier, count: int = 1):
+    def give_item(self, item: ItemStack, destined_player: str | PlayerSpecifier):
         __mcf = get_current_mcf()
         if isinstance(__mcf, mcfunction):
-            __mcf.content.append(f'give {destined_player.value if isinstance(destined_player, PlayerSpecifier) else destined_player} {item_id} {count}')
+            __mcf.content.append(f'give {destined_player.value if isinstance(destined_player, PlayerSpecifier) else destined_player} {item.item_id} {item.count}')
             set_current_mcf(__mcf)
