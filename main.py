@@ -1,4 +1,5 @@
 from minelib.minelib import *
+import items
 
 pack = Pack("test", "Zenn", 48)
 
@@ -17,7 +18,7 @@ def on_coas_right_click():
 @pack.tick
 def on_tick():
     obj = pack.services.ScoreboardService.get_objective("COAS_RightClick")
-    pack.services.Minecraft.execute_if_score_equals(PlayerSpecifier.ALL, obj, 1, "on_coas_right_click")
+    pack.services.Minecraft.execute_if_score_greater_than_or_equal_to(PlayerSpecifier.ALL, obj, 1, f"{pack.namespace}:on_coas_right_click")
 
-pack.dump()
-#pack.dump("C:/Users/carve/AppData/Roaming/com.modrinth.theseus/profiles/Fabulously Optimized (1)/saves/New World22/datapacks")
+#pack.dump()
+pack.dump("C:/Users/carve/AppData/Roaming/com.modrinth.theseus/profiles/Fabulously Optimized (1)/saves/New World22/datapacks")

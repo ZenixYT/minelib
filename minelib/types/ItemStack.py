@@ -14,3 +14,11 @@ class ItemStack:
 
     def set_item_meta(self, meta: ItemMeta):
         self.meta = meta
+
+    def get_mc_str(self):
+        component_list: list[str] = []
+        
+        for component in self.get_item_meta().components:
+            component_list.append(component.get_mc_str())
+
+        return f"{self.item_id}[{','.join(component_list)}]"

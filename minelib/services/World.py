@@ -20,3 +20,13 @@ class World:
         __mcf = get_current_mcf()
         __mcf.content.append(f"execute as {player.value if isinstance(player, PlayerSpecifier) else player} at @s run setblock ~{loc.X if loc.X != 0 else ''} ~{loc.Y if loc.Y != 0 else ''} ~{loc.Z if loc.Z != 0 else ''} {block_id}")
         set_current_mcf(__mcf)
+
+    def summon_entity(self, entity_id: str, loc: Location):
+        __mcf = get_current_mcf()
+        __mcf.content.append(f"summon {entity_id} {loc.X} {loc.Y} {loc.Z}")
+        set_current_mcf(__mcf)
+
+    def summon_entity_relative(self, entity_id: str, player: str | PlayerSpecifier, loc: Location):
+        __mcf = get_current_mcf()
+        __mcf.content.append(f"execute as {player.value if isinstance(player, PlayerSpecifier) else player} at @s run summon {entity_id} ~{loc.X if loc.X != 0 else ''} ~{loc.Y if loc.Y != 0 else ''} ~{loc.Z if loc.Z != 0 else ''}")
+        set_current_mcf(__mcf)

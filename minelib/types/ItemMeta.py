@@ -1,23 +1,22 @@
 from dataclasses import dataclass
 from minelib.types.PlayerSpecifier import PlayerSpecifier
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
+from minelib.types.ItemComponent import ItemComponent
 
-@dataclass
 class ItemMeta:
-    display_name: str = None
-    custom_model_data: int = None
+    def __init__(self):
+        self.components: list[ItemComponent] = []
 
-    def has_custom_model_data(self):
-        return True if self.custom_model_data is not None else False
+    def new_component(self, component: ItemComponent):
+        self.components.append(component)
+
+    def remove_component(self, component_name: str):
+        for component in self.components:
+            if component.component_name == component_name:
+                self.components.remove(component)
+                return
     
-    def get_custom_model_data(self):
-        return self.custom_model_data
-
-    def set_custom_model_data(self, custom_model_data: int):
-        self.custom_model_data = custom_model_data
-
-    def get_display_name(self):
-        return self.display_name
-    
-    def set_display_name(self, name: str):
-        self.display_name = name
+    def get_component(self, component_name: str):
+        for component in self.components:
+            if component.component_name == component_name:
+                return component

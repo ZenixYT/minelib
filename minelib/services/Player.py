@@ -18,5 +18,6 @@ class Player:
     def give_item(self, item: ItemStack, destined_player: str | PlayerSpecifier):
         __mcf = get_current_mcf()
         if isinstance(__mcf, mcfunction):
-            __mcf.content.append(f'give {destined_player.value if isinstance(destined_player, PlayerSpecifier) else destined_player} {item.item_id} {item.count}')
+            item_str = item.get_mc_str()
+            __mcf.content.append(f'give {destined_player.value if isinstance(destined_player, PlayerSpecifier) else destined_player} {item_str} {item.count}')
             set_current_mcf(__mcf)
