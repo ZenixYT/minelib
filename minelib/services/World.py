@@ -23,7 +23,7 @@ class World:
 
     def summon_entity(self, entity_id: str, loc: Location):
         __mcf = get_current_mcf()
-        __mcf.content.append(f"summon {entity_id} {loc.X} {loc.Y} {loc.Z}")
+        __mcf.content.append(f"summon {entity_id} {loc.to_string()}")
         set_current_mcf(__mcf)
 
     def summon_entity_relative(self, entity_id: str, player: str | PlayerSpecifier, loc: Location):

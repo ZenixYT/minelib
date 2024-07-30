@@ -19,9 +19,9 @@ class Services:
         self.ScoreboardService = Scoreboard()
 
 class Pack():
-    def __init__(self, name: str, author: str, version: str):
+    def __init__(self, name: str, author: str, version: str, namespace: str = None):
         self.name = name
-        self.namespace = name.lower()
+        self.namespace = name.lower() if namespace is None else namespace
         self.author = author
         self.version = version
         
