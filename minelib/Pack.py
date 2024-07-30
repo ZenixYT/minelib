@@ -1,11 +1,13 @@
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
+
 from minelib.types.PlayerSpecifier import PlayerSpecifier
+from minelib.types.ItemStack import ItemStack, ItemMeta
+from minelib.types.CraftingRecipe import CraftingRecipe, CraftingKey
 
 from minelib.services.Player import Player
 from minelib.services.Server import Server
 from minelib.services.World import World
 from minelib.services.Scoreboard import Scoreboard, Objective
-from minelib.services.Minecraft import Minecraft
 
 import os, json
 
@@ -15,7 +17,6 @@ class Services:
         self.ServerService = Server()
         self.WorldService = World()
         self.ScoreboardService = Scoreboard()
-        self.Minecraft = Minecraft(pack)
 
 class Pack():
     def __init__(self, name: str, author: str, version: str):
@@ -27,6 +28,8 @@ class Pack():
         self.load_funcs: list[mcfunction] = []
         self.tick_funcs: list[mcfunction] = []
         self.funcs: list[mcfunction] = []
+
+        self.recipes: list[CraftingRecipe] = []
 
         self.services = Services(self)
 
@@ -58,6 +61,9 @@ class Pack():
             __mcf = get_current_mcf()
             __mcf.content.append(f"execute as {destinedPlayer.value} run function {self.namespace}:{mcf.name}")
             set_current_mcf(__mcf)
+
+    def register_crafting_recipe(self, new_recipe: CraftingRecipe):
+        self.recipes.append(new_recipe)
 
     def dump(self, path: str = "."):
         pack_mcmeta = {
@@ -95,3 +101,40 @@ class Pack():
 
         with open(f"{path}/{self.name}/data/minecraft/tags/function/tick.json", "w") as f:
             json.dump(tick_json, f, indent = 4)
+
+        if len(self.recipes) > 0:
+            os.makedirs(f"{path}/{self.name}/data/{self.namespace}/recipe/", exist_ok=True)
+
+            for recipe in self.recipes:
+                key_json = {}
+                for key in recipe.crafting_keys:
+                    key_json.update({key.key: {"item": key.item_id}})
+                
+                components_json = {}
+                item_crafted_meta = recipe.item_crafted.get_item_meta()
+                for component in item_crafted_meta.components:
+                    if isinstance(component.component_value, str):
+                        components_json.update({component.component_name: component.component_value})
+                    else:
+                        components_json.update({component.component_name: component.component_value})
+
+                if item_crafted_meta.display_name is not None:
+                    jon = json.dumps(item_crafted_meta.display_name.dump())
+                    components_json.update({"minecraft:item_name": jon})
+
+                if item_crafted_meta.custom_model_data is not None:
+                    components_json.update({"minecraft:custom_model_data": item_crafted_meta.custom_model_data})
+
+                recipe_json = {
+                    "type": f"{'minecraft:crafting_shaped' if recipe.is_recipe_shaped else 'minecraft:crafting_shapeless'}",
+                    "category": recipe.recipe_category,
+                    "pattern": recipe.pattern,
+                    "key": key_json,
+                    "result": {
+                        "id": recipe.item_crafted.item_id,
+                        "components": components_json
+                    }
+                }
+
+                with open(f"{path}/{self.name}/data/{self.namespace}/recipe/{recipe.recipe_name}.json", "w") as f:
+                    json.dump(recipe_json, f, indent = 4)

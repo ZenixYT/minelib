@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from minelib.types.PlayerSpecifier import PlayerSpecifier
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
 from minelib.types.ItemMeta import ItemMeta
+import json
 
 class ItemStack:
     def __init__(self, item_id: str, count: int):
@@ -20,5 +21,12 @@ class ItemStack:
         
         for component in self.get_item_meta().components:
             component_list.append(component.get_mc_str())
+
+        if self.meta.display_name is not None:
+            jSon = json.dumps(self.meta.display_name.dump())
+            component_list.append(f"minecraft:item_name='{jSon}'")
+
+        if self.meta.custom_model_data is not None:
+            component_list.append(f"minecraft:custom_model_data={self.meta.custom_model_data}")
 
         return f"{self.item_id}[{','.join(component_list)}]"
