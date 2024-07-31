@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from minelib.types.PlayerSpecifier import PlayerSpecifier
-from minelib.types.EntityTypesTag import EntityTypesTag
+from minelib.types.FilterTag import EntityTypesTag
 
 @dataclass
 class EntitySpecifier():
