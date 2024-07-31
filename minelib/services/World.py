@@ -30,3 +30,8 @@ class World:
         __mcf = get_current_mcf()
         __mcf.content.append(f"execute as {player.value if isinstance(player, PlayerSpecifier) else player} at @s run summon {entity_id} ~{loc.X if loc.X != 0 else ''} ~{loc.Y if loc.Y != 0 else ''} ~{loc.Z if loc.Z != 0 else ''}")
         set_current_mcf(__mcf)
+    
+    def spawn_particle(self, particle_id: str, loc: Location, delta: Location, speed: int, count: int):
+        __mcf = get_current_mcf()
+        __mcf.content.append(f"particle {particle_id} {loc.to_string()} {delta.to_string()} {speed} {count}")
+        set_current_mcf(__mcf)

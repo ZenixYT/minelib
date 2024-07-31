@@ -1,7 +1,8 @@
 class mcfunction:
-    def __init__(self, name: str):
+    def __init__(self, name: str, pack):
         self.name = name
         self.content: list[str] = []
+        self.function_name: str = f"{pack.namespace}:{name}"
 
 __CURRENT_MCF: mcfunction | None = None
 

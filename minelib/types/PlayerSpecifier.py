@@ -5,3 +5,4 @@ class PlayerSpecifier(Enum):
     SELF = "@s"
     RANDOM = "@r"
     CLOSEST = "@p"
+    ALL_ENTITIES = "@e"

@@ -1,8 +1,10 @@
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
 
 from minelib.types.PlayerSpecifier import PlayerSpecifier
+from minelib.types.EntitySpecifier import EntitySpecifier
 from minelib.types.ItemStack import ItemStack, ItemMeta
 from minelib.types.CraftingRecipe import CraftingRecipe, CraftingKey
+from minelib.types.FilterTag import FilterTag
 
 from minelib.services.Player import Player
 from minelib.services.Server import Server
@@ -30,6 +32,8 @@ class Pack():
         self.funcs: list[mcfunction] = []
 
         self.recipes: list[CraftingRecipe] = []
+        self.entity_filters = list[FilterTag] = []
+        self.block_filters = list[FilterTag] = []
 
         self.services = Services(self)
 
@@ -52,18 +56,31 @@ class Pack():
         self.load_funcs.append(mcf)
         return mcf
     
-    def run_function(self, funcName, destinedPlayer: PlayerSpecifier = PlayerSpecifier.SELF):
+    def run_function(self, funcName, destinedPlayer: EntitySpecifier):
         mcf: mcfunction = None
         for func in self.funcs:
             if func.name == funcName:
                 mcf = func
         if mcf is not None:
             __mcf = get_current_mcf()
-            __mcf.content.append(f"execute as {destinedPlayer.value} run function {self.namespace}:{mcf.name}")
+            __mcf.content.append(f"execute as {destinedPlayer.to_string()} run function {self.namespace}:{mcf.name}")
             set_current_mcf(__mcf)
 
     def register_crafting_recipe(self, new_recipe: CraftingRecipe):
         self.recipes.append(new_recipe)
+
+    def register_entity_type_filter(self, name: str, entities: list[str], replace: bool = False):
+        new_tag = FilterTag(name, entities, replace)
+        self.entity_filters.append(new_tag)
+
+    def register_block_type_filter(self, name: str, blocks: list[str]):
+        new_tag = FilterTag(name, blocks, False)
+        self.block_filters.append(new_tag)
+
+    def create_lib(self, path: str = "."):
+        os.makedirs(f"{path}/{self.name}/data/{self.namespace}lib/function", exist_ok=True)
+
+        
 
     def dump(self, path: str = "."):
         pack_mcmeta = {

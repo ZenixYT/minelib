@@ -11,14 +11,15 @@ class ScoreboardOperationType(Enum):
     # Need to add the rest later
 
 class Objective:
-    def __init__(self, name: str, displayName: str = "_", type: str = "dummy"):
+    def __init__(self, name: str, displayName: str = "_", type: str = "dummy", create_objective: bool = True):
         self.name = name
         self.displayName = displayName if displayName != "_" else name
         self.type = type
 
-        _mcf = get_current_mcf()
-        _mcf.content.append(f'scoreboard objectives add {self.name} {self.type} "{self.displayName}"')
-        set_current_mcf(_mcf)
+        if create_objective:
+            _mcf = get_current_mcf()
+            _mcf.content.append(f'scoreboard objectives add {self.name} {self.type} "{self.displayName}"')
+            set_current_mcf(_mcf)
     
     def set_score(self, new_score: int, destined_player: str | PlayerSpecifier):
         _mcf = get_current_mcf()
