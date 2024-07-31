@@ -32,14 +32,14 @@ class Pack():
         self.funcs: list[mcfunction] = []
 
         self.recipes: list[CraftingRecipe] = []
-        self.entity_filters = list[FilterTag] = []
-        self.block_filters = list[FilterTag] = []
+        self.entity_filters: list[FilterTag] = []
+        self.block_filters: list[FilterTag] = []
 
         self.services = Services(self)
 
     # Decorators
     def function(self, func):
-        mcf = mcfunction(func.__name__)
+        mcf = mcfunction(func.__name__, self)
         set_current_mcf(mcf)
         func()
         set_current_mcf(None)

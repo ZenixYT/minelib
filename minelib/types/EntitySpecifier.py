@@ -1,11 +1,10 @@
 from dataclasses import dataclass
 from minelib.types.PlayerSpecifier import PlayerSpecifier
-from minelib.types.FilterTag import EntityTypesTag
 
-@dataclass
 class EntitySpecifier():
-    base_specifier: PlayerSpecifier
-    statements: list[str] = []
+    def __init__(self, base_specifier: PlayerSpecifier):
+        self.base_specifier: PlayerSpecifier = base_specifier
+        self.statements: list[str] = []
 
     def dx(self, dx: int):
         self.statements.append(f"dx={dx}")
@@ -28,4 +27,4 @@ class EntitySpecifier():
         return self
 
     def to_string(self):
-        return f'{self.base_specifier}[{','.join(self.statements)}]'
+        return f"{self.base_specifier.value}[{','.join(self.statements)}]"
