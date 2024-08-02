@@ -1,2 +1,0 @@
-execute as @a if score @s used_coas matches 1.. if items entity @a weapon.mainhand minecraft:carrot_on_a_stick[minecraft:item_name='{"text": "Magic Mirror"}',minecraft:custom_model_data=1001] run function magicmirror:on_magic_mirror_used
-scoreboard players set @a used_coas 0
