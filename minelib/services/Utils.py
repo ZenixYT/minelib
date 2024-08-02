@@ -1,6 +1,5 @@
-from minelib.types.PlayerSpecifier import PlayerSpecifier
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
-from minelib.types.EntitySpecifier import EntitySpecifier
+from minelib.types.Core.EntitySpecifier import EntitySpecifier
 
 class Utils:
     def __init__(self, pack):

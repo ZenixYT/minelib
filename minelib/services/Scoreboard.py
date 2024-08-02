@@ -1,6 +1,6 @@
 from enum import Enum
 from minelib.minecraft.mcfunction import get_current_mcf, set_current_mcf, mcfunction
-from minelib.types.PlayerSpecifier import PlayerSpecifier
+from minelib.types.Core.EntitySpecifier import EntitySpecifier
 
 class ScoreboardOperationType(Enum):
     ADD = "+="
@@ -21,27 +21,27 @@ class Objective:
             _mcf.content.append(f'scoreboard objectives add {self.name} {self.type} "{self.displayName}"')
             set_current_mcf(_mcf)
     
-    def set_score(self, new_score: int, destined_player: str | PlayerSpecifier):
+    def set_score(self, new_score: int, player: EntitySpecifier):
         _mcf = get_current_mcf()
-        _mcf.content.append(f'scoreboard players set {destined_player.value if isinstance(destined_player, PlayerSpecifier) else destined_player} {self.name} {new_score}')
+        _mcf.content.append(f'scoreboard players set {player.to_string()} {self.name} {new_score}')
         set_current_mcf(_mcf)
 
-    def add_score(self, new_score: int, destined_player: str | PlayerSpecifier):
+    def add_score(self, new_score: int, player: EntitySpecifier):
         _mcf = get_current_mcf()
-        _mcf.content.append(f'scoreboard players add {destined_player.value if isinstance(destined_player, PlayerSpecifier) else destined_player} {self.name} {new_score}')
+        _mcf.content.append(f'scoreboard players add {player.to_string()} {self.name} {new_score}')
         set_current_mcf(_mcf)
 
-    def remove_score(self, new_score: int, destined_player: str | PlayerSpecifier):
+    def remove_score(self, new_score: int, player: EntitySpecifier):
         _mcf = get_current_mcf()
-        _mcf.content.append(f'scoreboard players remove {destined_player.value if isinstance(destined_player, PlayerSpecifier) else destined_player} {self.name} {new_score}')
+        _mcf.content.append(f'scoreboard players remove {player.to_string()} {self.name} {new_score}')
         set_current_mcf(_mcf)
 
 class Scoreboard:
     def __init__(self):
         self.objectives: list[Objective] = []
 
-    def create_objective(self, name: str, displayName: str = "_", type: str = "dummy") -> Objective:
-        new_obj = Objective(name, displayName, type)
+    def create_objective(self, name: str, displayName: str = "_", type_: str = "dummy") -> Objective:
+        new_obj = Objective(name, displayName, type_)
         self.objectives.append(new_obj)
         return new_obj
     

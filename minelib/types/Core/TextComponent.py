@@ -34,13 +34,16 @@ class TextComponent:
     def __init__(self, text: str, color: TextColor = None, format: TextFormat | list[TextFormat] = None):
         self.text = text
         self.color = color
-        self.format = format if format is list[TextFormat] else [format]
+        self.format = [format] if isinstance(format, TextFormat) else format if format is not None else []
+
+        print(type(self.format))
+        print(len(self.format))
 
     def dump(self, include_apostrophes=True):
         new_json = {"text": self.text}
         if self.color is not None:
             new_json.update({"color": TextColor.value})
-        if self.format is not None:
+        if len(self.format) > 0:
             for format in self.format:
                 new_json.update({format.name.lower(): True})
 

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from minelib.types.ItemStack import ItemStack, ItemMeta
+from minelib.types.Items.ItemStack import ItemStack, ItemMeta
 
 @dataclass
 class CraftingKey:

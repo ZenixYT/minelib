@@ -1,11 +1,10 @@
 from dataclasses import dataclass
-from minelib.types.PlayerSpecifier import PlayerSpecifier
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
-from minelib.types.ItemMeta import ItemMeta
+from minelib.types.Items.ItemMeta import ItemMeta
 import json
 
 class ItemStack:
-    def __init__(self, item_id: str, count: int):
+    def __init__(self, item_id: str, count: int = 1):
         self.item_id = item_id
         self.count = count
         self.meta = ItemMeta()

@@ -1,12 +1,12 @@
 from enum import Enum
 from minelib.minecraft.mcfunction import get_current_mcf, set_current_mcf, mcfunction
-from minelib.types.PlayerSpecifier import PlayerSpecifier
-from minelib.types.EntitySpecifier import EntitySpecifier
-from minelib.types.ItemStack import ItemStack, ItemMeta
-from minelib.types.Location import Location
+from minelib.types.Core.EntitySpecifier import EntitySpecifier
+from minelib.types.Items.ItemStack import ItemStack, ItemMeta
+from minelib.types.Core.Location import Location
+from minelib.types.World.Entity import Entity
 from typing import Iterable
 
-class Player:
+class Player():
     def __init__(self):
         pass
 
@@ -32,12 +32,12 @@ class Player:
 
     def teleport(self, player: EntitySpecifier, loc: Location):
         __mcf = get_current_mcf()
-        __mcf.content.append(f"execute as {player.to_string()} run tp @s {loc.X} {loc.Y} {loc.Z}")
+        __mcf.content.append(f"execute as {player.to_string()} run tp @s {loc.to_string()}")
         set_current_mcf(__mcf)
 
     def teleport_relative(self, player: EntitySpecifier, loc: Location):
         __mcf = get_current_mcf()
-        __mcf.content.append(f"execute as {player.to_string()} at @s run tp @s ~{loc.X if loc.X != 0 else ''} ~{loc.Y if loc.Y != 0 else ''} ~{loc.Z if loc.Z != 0 else ''}")
+        __mcf.content.append(f"execute as {player.to_string()} at @s run tp @s {loc.to_string()}")
         set_current_mcf(__mcf)
 
     def teleport_to_entity_or_player(self, player: EntitySpecifier, entity: EntitySpecifier):

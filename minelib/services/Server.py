@@ -1,5 +1,3 @@
-# Server.py
-from minelib.types.PlayerSpecifier import PlayerSpecifier
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
 
 class Server:

@@ -1,8 +1,7 @@
 from dataclasses import dataclass
-from minelib.types.PlayerSpecifier import PlayerSpecifier
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
-from minelib.types.ItemComponent import ItemComponent
-from minelib.types.TextComponent import TextComponent, TextColor, TextFormat
+from minelib.types.Items.ItemComponent import ItemComponent
+from minelib.types.Core.TextComponent import TextComponent, TextColor, TextFormat
 
 class ItemMeta:
     def __init__(self):

@@ -1,10 +1,9 @@
 from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
 
-from minelib.types.PlayerSpecifier import PlayerSpecifier
-from minelib.types.EntitySpecifier import EntitySpecifier
-from minelib.types.ItemStack import ItemStack, ItemMeta
-from minelib.types.CraftingRecipe import CraftingRecipe, CraftingKey
-from minelib.types.FilterTag import FilterTag
+from minelib.types.Core.EntitySpecifier import EntitySpecifier
+from minelib.types.Items.ItemStack import ItemStack, ItemMeta
+from minelib.types.Core.CraftingRecipe import CraftingRecipe, CraftingKey
+from minelib.types.Core.FilterTag import FilterTag
 
 from minelib.services.Player import Player
 from minelib.services.Server import Server
@@ -21,11 +20,13 @@ class Services:
         self.ScoreboardService = Scoreboard()
 
 class Pack():
-    def __init__(self, name: str, author: str, version: str, namespace: str = None):
+    def __init__(self, name: str, author: str, version: str, namespace: str = None, description: str = None):
         self.name = name
         self.namespace = name.lower() if namespace is None else namespace
         self.author = author
         self.version = version
+        
+        self.description = description if description is not None else f"Created by {self.author}; Generated with minelib!"
         
         self.load_funcs: list[mcfunction] = []
         self.tick_funcs: list[mcfunction] = []
