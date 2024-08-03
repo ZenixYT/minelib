@@ -12,7 +12,7 @@ classifiers = [
 
 setup(
     name = "minelib",
-    version = "0.0.1",
+    version = "a1.0.0",
     description = "A Python library to assist with creating Minecraft: Java Edition datapacks.",
     long_description=open("README.md").read(),
     url='',
