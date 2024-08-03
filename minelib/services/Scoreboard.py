@@ -45,8 +45,11 @@ class Scoreboard:
         self.objectives.append(new_obj)
         return new_obj
     
-    def get_objective(self, name: str) -> Objective | None:
-        for obj in self.objectives:
-            if obj.name == name:
-                return obj
-        return None
+    def get_objective(self, name: str, already_exists_or_in_other_pack: bool = False) -> Objective | None:
+        if already_exists_or_in_other_pack:
+            return Objective(name, create_objective=False)
+        else:
+            for obj in self.objectives:
+                if obj.name == name:
+                    return obj
+            return None

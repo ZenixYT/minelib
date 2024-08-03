@@ -9,6 +9,7 @@ from minelib.services.Player import Player
 from minelib.services.Server import Server
 from minelib.services.World import World
 from minelib.services.Scoreboard import Scoreboard, Objective
+from minelib.services.Utils import Utils
 
 import os, json
 
@@ -18,6 +19,7 @@ class Services:
         self.ServerService = Server()
         self.WorldService = World()
         self.ScoreboardService = Scoreboard()
+        self.UtilitiesService = Utils(pack)
 
 class Pack():
     def __init__(self, name: str, author: str, version: str, namespace: str = None, description: str = None):
