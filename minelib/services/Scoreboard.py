@@ -1,4 +1,5 @@
 from enum import Enum
+from dataclasses import dataclass
 from minelib.minecraft.mcfunction import get_current_mcf, set_current_mcf, mcfunction
 from minelib.types.Core.EntitySpecifier import EntitySpecifier
 
@@ -35,6 +36,26 @@ class Objective:
         _mcf = get_current_mcf()
         _mcf.content.append(f'scoreboard players remove {player.to_string()} {self.name} {new_score}')
         set_current_mcf(_mcf)
+
+@dataclass
+class Score:
+    objective: Objective
+    entity: EntitySpecifier
+
+    def set_score(self, new_score: int):
+        __mcf = get_current_mcf()
+        __mcf.content.append(f'scoreboard players set {self.entity.to_string()} {self.objective.name} {new_score}')
+        set_current_mcf(__mcf)
+
+    def add_score(self, new_score: int):
+        __mcf = get_current_mcf()
+        __mcf.content.append(f'scoreboard players add {self.entity.to_string()} {self.objective.name} {new_score}')
+        set_current_mcf(__mcf)
+    
+    def remove_score(self, new_score: int):
+        __mcf = get_current_mcf()
+        __mcf.content.append(f'scoreboard players remove {self.entity.to_string()} {self.objective.name} {new_score}')
+        set_current_mcf(__mcf)
 
 class Scoreboard:
     def __init__(self):

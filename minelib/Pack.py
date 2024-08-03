@@ -5,8 +5,8 @@ from minelib.types.Items.ItemStack import ItemStack, ItemMeta
 from minelib.types.Core.CraftingRecipe import CraftingRecipe, CraftingKey
 from minelib.types.Core.FilterTag import FilterTag
 
-from minelib.services.Player import Player
-from minelib.services.Server import Server
+#from minelib.services.Player import Player
+#from minelib.services.Server import Server
 from minelib.services.World import World
 from minelib.services.Scoreboard import Scoreboard, Objective
 from minelib.services.Utils import Utils
@@ -15,8 +15,7 @@ import os, json
 
 class Services:
     def __init__(self, pack):
-        self.PlayerService = Player()
-        self.ServerService = Server()
+        #self.PlayerService = Player()
         self.WorldService = World()
         self.ScoreboardService = Scoreboard()
         self.UtilitiesService = Utils(pack)
@@ -79,11 +78,6 @@ class Pack():
     def register_block_type_filter(self, name: str, blocks: list[str]):
         new_tag = FilterTag(name, blocks, False)
         self.block_filters.append(new_tag)
-
-    def create_lib(self, path: str = "."):
-        os.makedirs(f"{path}/{self.name}/data/{self.namespace}lib/function", exist_ok=True)
-
-        
 
     def dump(self, path: str = "."):
         pack_mcmeta = {

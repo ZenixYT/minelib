@@ -8,3 +8,4 @@ from minelib.types.Core.TextComponent import TextComponent, TextColor, TextForma
 from minelib.types.Core.EntitySpecifier import EntitySpecifier, TargetSelector, DistanceOps
 from minelib.types.Core.NBT import NBTCompound, NBTType
 from minelib.types.World.Entity import Entity
+from minelib.types.Players.Player import Player
