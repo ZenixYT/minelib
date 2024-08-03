@@ -8,6 +8,9 @@
 
 ### Added
 - Beginnings of resource pack implementation
+- All of the minelib project, including but not limited to:
+    - Datapack support
+    - Crafting recipe support
 
 ### Removed
 - Majority of the Services system
