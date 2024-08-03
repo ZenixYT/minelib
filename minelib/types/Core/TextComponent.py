@@ -36,9 +36,6 @@ class TextComponent:
         self.color = color
         self.format = [format] if isinstance(format, TextFormat) else format if format is not None else []
 
-        print(type(self.format))
-        print(len(self.format))
-
     def dump(self, include_apostrophes=True):
         new_json = {"text": self.text}
         if self.color is not None:
