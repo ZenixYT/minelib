@@ -22,7 +22,7 @@ class World:
 
     def set_block(self, loc: Location, block_id: str):
         __mcf = get_current_mcf()
-        __mcf.content.append(f"setblock {loc.X} {loc.Y} {loc.Z} {block_id}")
+        __mcf.content.append(f"setblock {loc.to_string()}")
         set_current_mcf(__mcf)
 
     def set_block_relative(self, player: EntitySpecifier, loc: Location, block_id: str):

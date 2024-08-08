@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-from minelib.minecraft.mcfunction import mcfunction, get_current_mcf, set_current_mcf
 from minelib.types.Items.ItemComponent import ItemComponent
 from minelib.types.Core.TextComponent import TextComponent, TextColor, TextFormat
 

@@ -52,3 +52,20 @@ class Player:
         else:
             for tag in tags:
                 Execute().as_(self.spec).run_command(f"tag @s remove {tag}")
+
+    def apply_effects(self, effects: str | list[str], time: int, should_show_particles: bool = True):
+        if isinstance(effects, str):
+            Execute().as_(self.spec).run_command(f"effect give @s {effects} {time} {should_show_particles}")
+        else:
+            for effect in effects:
+                Execute().as_(self.spec).run_command(f"effect give @s {effect} {time} {should_show_particles}")
+
+    def clear_effects(self, effects: str | list[str] = None):
+        if effects is not None:
+            if isinstance(effects, str):
+                Execute().as_(self.spec).run_command(f"effect clear @s {effects}")
+            else:
+                for effect in effects:
+                    Execute().as_(self.spec).run_command(f"effect clear @s {effect}")
+        else:
+            Execute().as_(self.spec).run_command(f"effect clear @s")
