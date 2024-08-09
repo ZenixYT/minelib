@@ -14,5 +14,5 @@ class ResourcePack:
         tex = Texture(path)
         self.textures.append(tex)
 
-    def dump():
+    def dump(self):
         pass #TODO: Implement resource packs
